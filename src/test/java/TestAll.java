@@ -1,3 +1,4 @@
+import org.openqa.selenium.Alert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import task.AddEmployee;
@@ -6,12 +7,16 @@ import task.Login;
 
 public class TestAll extends Base {
 
-    @org.testng.annotations.Test
+    @Test
     public void testing() {
+
+        String mensaje;
         Login.as(webDriver, "admin", "admin123");
         Assert.assertTrue(IsEmployeePageDisplayed.form(webDriver));
         AddEmployee.as(webDriver, "Iver", "iver@gmail.com", "Vallegrande","78756439");
-        //Assert.assertEquals("Success! Employee successfully added.","Success! Employee successfully added.");
+        Alert alert=webDriver.switchTo().alert();
+        mensaje=alert.getText();
+        Assert.assertEquals(mensaje,"Success! Employee successfully added.");
 
     }
 
